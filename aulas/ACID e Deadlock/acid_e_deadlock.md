@@ -1,6 +1,4 @@
-# Modelagem Informacional
-
-## Mecanismos transacionais
+# Mecanismos transacionais
 
 **ACID**
 
@@ -36,5 +34,3 @@ Ao definir o nivel de consistencia mexemos diretamente no _Isolamento_ de nossas
 
 ![alt text](img/CAP.png)
 
-## Tarefas
-- 10/08/2026 Questionario: Envios de Questionário - A Matriz de Zachman no Caso MOBITAXI
