@@ -1,1 +1,0 @@
-1. Porque o pruto tem o cliente como FK ??

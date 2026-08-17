@@ -1,0 +1,4 @@
+- Modifique levemente o ER
+- Objetivos organizacionais devem possuir NOME
+- Crie os objetivos organizacionais primeiro de cima pra baixo e depois faça os objetivos informacionais
+- Minimamente dois objetivos organizacionais solidos
