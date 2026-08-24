@@ -41,10 +41,45 @@ O objetivo do DW é o retorno de informações analiticas mesmo assim ele ainda 
 
 o DW comporta: dados integrados, orientados por assunto, de âmbito corporativo, históricos e variáveis ​​no tempo
 
-**COnceitos**
+**Conceitos**
 
-_Repositorio Estruturado_: 
-_Integrado_: Ele consegue integrar informações de varias fontes internas e externas
-_Orientado para o assunto_: Um DW é construido para analizar um assunto especifico, em geral são assuntos genericos
-_Abrange a empressa como um todo_: o DW consegue ver a informação a analitica de forma organizada de toda a empressa, por exemplo se existissem varios predios o DW consegue enxergar todos
-_Historico_: Ele permite ter um horizonte temporal mais amplo do que em banco de dados operacionais, dependendo da modelagem do problema e de como foi criado o DW podemos ter acesso a dados do passado da forma em como eles chegaram.
+- _Repositorio Estruturado_: 
+- _Integrado_: Ele consegue integrar informações de varias fontes internas e externas
+- _Orientado para o assunto_: Um DW é construido para analizar um assunto especifico, em geral são assuntos genericos
+- _Abrange a empressa como um todo_: o DW consegue ver a informação a analitica de forma organizada de toda a empressa, por exemplo se existissem varios predios o DW consegue enxergar todos
+- _Historico_: Ele permite ter um horizonte temporal mais amplo do que em banco de dados operacionais, dependendo da modelagem do problema e de como foi criado o DW podemos ter acesso a dados do passado da forma em como eles chegaram.
+
+### DW Components
+
+**Sistemas de Origem** <br>
+São bases de dados/repositorios que possuem informação analitica util par aassuntos de analise, pode incluit fontes internas e externas. os dois objetivos são: servir para o operacional e ser fonde do DW
+
+**Data warehouse** <br>
+é o target sistem, ele le as informacções dos sistemas de origem de maneira periodica ou continua
+
+**Infraestrutura ETL** <br>
+É a que facilita a leitura de dados para o Data Warehouse, ETL significa Extract, Transform, Load
+- _Extract_: Extrair os dados das fontes de origem.
+- _Tranform_: Transforma os dados de acordo com o assunto/objetivo do DW, Desnormalizando os dados se necessario, alem de garantir a qualidade dos dados ao realizar essa transformação.
+- _Load_: Levar os dados (Dimensões) transformados ao target sistem (Data Warehouse).
+
+**Aplicações front-end (BI) de um DW** <br>
+É o que permite o acesso direto aos usuario, são dashboards e interfaces
+
+### Data Marts
+
+**Data mart** <br>
+É como se fosse um mini DW são mais focados, um DW setorial, e de uso mais departamental, não abrangem a empresa na sua totalidade. Tambem são usados quando a implentação de um DW na sua totalidade é algo muito caro
+
+|                           | **DATA WAREHOUSE**                                  | **DATA MART**                           |
+| :------------------------ | :-------------------------------------------------- | :-------------------------------------- |
+| **Subjects**              | Multiple                                            | Single                                  |
+| **Data Sources**          | Many                                                | Fewer                                   |
+| **Typical Size**          | Very big (routinely terabytes of data and larger)   | Not as big                              |
+| **Implementation Time**   | Relatively long (months, years)                     | Not as long                             |
+| **Focus**                 | Organization-wide                                   | Often narrower than organization-wide   |SS
+
+Ele pode ser _dependente_ quando depende de um DW é uma extensão do DW ou _independente_ caso contrario
+
+![](../../img/steps_in_development_of_DW.png)
+
