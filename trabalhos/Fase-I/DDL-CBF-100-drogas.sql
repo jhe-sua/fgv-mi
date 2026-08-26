@@ -159,7 +159,7 @@ CREATE TABLE CliCompraProd (
     DataCompra DATE NOT NULL,
     IDCliente INT NOT NULL,
     IDProduto INT NOT NULL,
-    PRIMARY KEY (IDCompra),
+    PRIMARY KEY (IDCompra, IDProduto),
     FOREIGN KEY (IDCliente) REFERENCES Cliente(IDCliente),
     FOREIGN KEY (IDProduto) REFERENCES Produto(IDProduto)
 );
@@ -169,9 +169,9 @@ CREATE TABLE CliCompraProd (
 CREATE TABLE CliVacina (
     IDCliente INT NOT NULL,
     VacDtAplic DATE NOT NULL,
-    VacAplic BOOLEAN NOT NULL,
+    VacDtProx DATE,
     IDProduto INT NOT NULL,
-    PRIMARY KEY (IDCliente),
+    PRIMARY KEY (IDCliente, VacDtAplic, IDProduto),
     FOREIGN KEY (IDCliente) REFERENCES Cliente(IDCliente) ON DELETE CASCADE,
     FOREIGN KEY (IDProduto) REFERENCES Vacina(IDProduto)
 );
