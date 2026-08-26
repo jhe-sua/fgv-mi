@@ -30,7 +30,6 @@ Perceba tambem que cada nivel de concistencia é muito mais restritivo que o ant
 
 Ao definir o nivel de consistencia mexemos diretamente no _Isolamento_ de nossas transações
 
-**Deadlock**
 
 ![alt text](img/CAP.png)
 
@@ -64,7 +63,7 @@ Tambem existe o 2PL estrito, a diferença é que ela não libera os bloqueios ao
 
 A desvantagemé que transações ainda precisam esperar por bloqueios e pode gerar condições para Deadlock.
 
-**Controle de concorrencia multi-versão (MVCC)**
+## Controle de concorrencia multi-versão (MVCC)
 
 Aqui cada transação cria um isolamento de snapshot do banco de dados no inicio da transação. isso garante que leitores não bloqueiem escritores e vice-versa, evitando tambem leituras sujas e leituras não repetiveis.
 
@@ -72,5 +71,15 @@ Aqui cada transação cria um isolamento de snapshot do banco de dados no inicio
 
 _Pessimista_: Assume que os conflitos são provaveis e os previne criando bloqueios. Reduz a taxa de transferencia.
 _Otimista_: Assume que os conflitos são raros, deixando as transaões acontecerem em suas proprias copias privadas de dados, depois valida se não a nenhum conflito e então realizaa escrita, se ouver conflito realiza um rollback e tenta de novo. O problema aqui é quando os conflitos são frequentes pois há muito trabalho desperdiçado.
+
+# Deadlock
+
+Os bancos de dados em geral tem 3 forams de lidar com os Deadlocks: Detecção, Prevenção ou Resolução
+
+_Detecção_: A maioria dos bancos de dados detecta deadlocks verificando periodicamente ciclos em um grafo de espera — uma estrutura de dados que mapeia qual transação está esperando por qual bloqueio. Quando um ciclo é encontrado, o SGBD seleciona uma transação “vítima” e a aborta, liberando os bloqueios para que as transações restantes possam continuar.
+
+_Prevenção_: A maioria dos bancos de dados detecta deadlocks verificando periodicamente ciclos em um grafo de espera — uma estrutura de dados que mapeia qual transação está esperando por qual bloqueio. Quando um ciclo é encontrado, o SGBD seleciona uma transação “vítima” e a aborta, liberando os bloqueios para que as transações restantes possam continuar.
+
+_Resolução_: A transação vítima abortada é revertida e geralmente retentada automaticamente pela aplicação. Como os deadlocks são geralmente infrequentes, o custo da retentativa é modesto.
 
 
