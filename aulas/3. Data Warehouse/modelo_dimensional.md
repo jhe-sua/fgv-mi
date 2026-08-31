@@ -7,7 +7,7 @@ Conceitualmente são caracteristicas de um fato, são os dados que me permitem a
 
 _Dimensões legais_: Calendario
 
-_Surrogate Key (Chave substituta):_ é uma outra PK que as dimensões usam para criar a "Maquina do tempo"
+_Surrogate Key (Chave substituta):_ é uma outra PK gerada de forma "Aleatoria" que as dimensões usam para evitar os seguintes problemas: (1) evitar quebrar a integridade por mudanças no negocio o que mudaria PKs existentes, (2) Perda da maquina do Tempo, (3) Falta de padronização e chaves compostas complexas, (4) Queda de performace por usar strings como PKs, (5) Registros temporariamente sem identificação. isto é, a PK natural não foi informada ainda. 
 
 _Slowed Changed Dimension_: 
 
