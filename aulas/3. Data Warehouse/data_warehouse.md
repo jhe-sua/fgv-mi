@@ -49,6 +49,12 @@ o DW comporta: dados integrados, orientados por assunto, de âmbito corporativo,
 - _Abrange a empressa como um todo_: o DW consegue ver a informação a analitica de forma organizada de toda a empressa, por exemplo se existissem varios predios o DW consegue enxergar todos
 - _Historico_: Ele permite ter um horizonte temporal mais amplo do que em banco de dados operacionais, dependendo da modelagem do problema e de como foi criado o DW podemos ter acesso a dados do passado da forma em como eles chegaram.
 
+**Tipos**
+
+- Normalized DW:
+- Dimensional DW:
+- Independent data marts:
+
 ### DW Components
 
 **Sistemas de Origem** <br>
