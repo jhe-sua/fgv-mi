@@ -7,6 +7,9 @@ Kimball: Criador do modelo estrela
 
 são os dois maiores pioneiros da história dos Data Warehouses. Eles criaram os conceitos fundamentais sobre como armazenar, organizar e analisar grandes volumes de dados nas empresas
 
+BottomUp: é ideia do  Ralph kimbal olhamos marcos espesificos da empresa para criar o DW masi facil de começar
+TopDown: é ideia do  Bill inmon olhamos a empresa como um todo.
+
 ## Informação Transacional vs Analitica
 
 A informação transacional é aquela usada numa transação, fatos, nada é feito com esses dados alem de armazenalos, usalos, movimentalos do jeito certo.

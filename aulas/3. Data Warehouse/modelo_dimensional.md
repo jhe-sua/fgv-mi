@@ -20,9 +20,9 @@ _Surrogate Key (Chave substituta):_ é uma outra PK gerada de forma "Aleatoria" 
 
 **Slowed Changed Dimension** <br>
 
-_Type 1_: Simplesmente atualizar, não há historico preservado
-_Type 2_: Aqui é feito um crescimento das linhas, crescimento vertical e ao aumentar a quantidade das linhas adicionamos 1 nova coluna para indicar qual o mais atual e uma nova coluna com o timestamp.
-_Type 3_: Não temos uma expansão vertical, temos uma expansão de colunas adicionando por exemplo colunas dos valores anteriores e valores correntes, o numero de colunas extras define o numero de passos que podemos voltar.
+_Type 1_: (Nada) Simplesmente atualizar, não há historico preservado
+_Type 2_: (Linhas) Aqui é feito um crescimento das linhas, crescimento vertical e ao aumentar a quantidade das linhas adicionamos 1 nova coluna para indicar qual o mais atual e uma nova coluna com o timestamp.
+_Type 3_: (Colunas) Não temos uma expansão vertical, temos uma expansão de colunas adicionando por exemplo colunas dos valores anteriores e valores correntes, o numero de colunas extras define o numero de passos que podemos voltar.
 
 
 ## Fato
@@ -32,6 +32,8 @@ Contem as FKs das Sugorrates Keys, e as metrificações que servem para responde
 > É definida uma PK composta, aqui não criamos uma sugorrate key, pois isso traria mais problemas, queremos que a tabela fato seja o fato mesmo, então as informações não mudam,é informacao imutavel, logo não é necessario criar uma SK.
 
 **Fato detalhado vs Fato agregado**
+
+O fato detalhado tem uma granularidade maior por transação, muitas vezes com mais de uma linha por transação, ja no fato agregado cada linha do fato representa mais de uma transação.
 
 **Granularidade do Fato**
 
