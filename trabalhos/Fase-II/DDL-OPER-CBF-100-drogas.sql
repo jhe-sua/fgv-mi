@@ -24,8 +24,8 @@ CREATE TABLE Fornecedor
 (
   CNPJ VARCHAR(25) NOT NULL,
   NomeFornecedor VARCHAR(255) NOT NULL,
-  IDForncecedor INT NOT NULL,
-  PRIMARY KEY (IDForncecedor)
+  IDFornecedor INT NOT NULL,
+  PRIMARY KEY (IDFornecedor)
 );
 
 CREATE TABLE Categoria
@@ -68,9 +68,9 @@ CREATE TABLE Produto
 CREATE TABLE FornTelefone
 (
   Telefone INT NOT NULL,
-  IDForncecedor INT NOT NULL,
-  PRIMARY KEY (Telefone, IDForncecedor),
-  FOREIGN KEY (IDForncecedor) REFERENCES Fornecedor(IDForncecedor)
+  IDFornecedor INT NOT NULL,
+  PRIMARY KEY (Telefone, IDFornecedor),
+  FOREIGN KEY (IDFornecedor) REFERENCES Fornecedor(IDFornecedor)
 );
 
 -- 3. TABELAS COM DEPENDÊNCIAS DE 2º NÍVEL
@@ -121,10 +121,10 @@ CREATE TABLE FornEstoque
   DataCompra DATE NOT NULL,
   QtdCompra INT NOT NULL,
   IDCompra INT NOT NULL,
-  IDForncecedor INT NOT NULL,
+  IDFornecedor INT NOT NULL,
   IDProduto INT NOT NULL,
   PRIMARY KEY (IDCompra),
-  FOREIGN KEY (IDForncecedor) REFERENCES Fornecedor(IDForncecedor),
+  FOREIGN KEY (IDFornecedor) REFERENCES Fornecedor(IDFornecedor),
   FOREIGN KEY (IDProduto) REFERENCES Produto(IDProduto)
 );
 

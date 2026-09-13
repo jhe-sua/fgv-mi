@@ -81,7 +81,7 @@ def main():
             # Gerando CNPJ sem pontuação, mas legível
             cnpj = fake.cnpj().replace('.', '').replace('/', '').replace('-', '')
             dados_fornecedor.append((cnpj, fake.company(), i))
-        write_batches(f, 'Fornecedor', ['CNPJ', 'NomeFornecedor', 'IDForncecedor'], dados_fornecedor)
+        write_batches(f, 'Fornecedor', ['CNPJ', 'NomeFornecedor', 'IDFornecedor'], dados_fornecedor)
 
         # 4. Categoria
         dados_categoria = []
@@ -214,7 +214,7 @@ def main():
         write_batches(
             f, 
             'FornEstoque', 
-            ['IDCompra', 'PrecoCompra', 'DataCompra', 'QtdCompra', 'IDForncecedor', 'IDProduto'], 
+            ['IDCompra', 'PrecoCompra', 'DataCompra', 'QtdCompra', 'IDFornecedor', 'IDProduto'], 
             dados_fornestoque
         )
 
@@ -225,7 +225,7 @@ def main():
             # Geraremos um telefone fictício de 9 dígitos para caber no INT
             tel1 = random.randint(900000000, 999999999)
             dados_forntelefone.append((tel1, f_id))
-        write_batches(f, 'FornTelefone', ['Telefone', 'IDForncecedor'], dados_forntelefone)
+        write_batches(f, 'FornTelefone', ['Telefone', 'IDFornecedor'], dados_forntelefone)
 
         # 10. Cliente
         dados_cliente = []
@@ -265,16 +265,18 @@ def main():
 
         # 14. CliCompraProd
         dados_clicompra = []
-        pares_compra = set()
+
         for i in range(QTD_COMPRAS):
-            id_compra = random.randint(1, 1500) # ID lógico da transação
+            # Usar i + 1 garante um ID único e sequencial para cada compra (1, 2, 3...)
+            id_compra = i + 1 
+            
             id_prod = random.randint(1, QTD_PRODUTOS)
-            if (id_prod, id_compra) not in pares_compra:
-                pares_compra.add((id_prod, id_compra))
-                qtd = random.randint(1, 5)
-                dt_compra = fake.date_between(start_date='-2y', end_date='today')
-                id_cli = random.choice(ids_clientes)
-                dados_clicompra.append((qtd, id_compra, dt_compra, id_cli, id_prod))
+            qtd = random.randint(1, 5)
+            dt_compra = fake.date_between(start_date='-2y', end_date='today')
+            id_cli = random.choice(ids_clientes)
+            
+            dados_clicompra.append((qtd, id_compra, dt_compra, id_cli, id_prod))
+
         write_batches(f, 'CliCompraProd', ['Quantidade', 'IDCompra', 'DataCompra', 'IDCliente', 'IDProduto'], dados_clicompra)
 
         # 15. CliEnferm

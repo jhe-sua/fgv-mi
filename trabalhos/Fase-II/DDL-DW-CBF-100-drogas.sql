@@ -6,18 +6,17 @@ SET search_path TO dw_cbf;
 
 CREATE TABLE DimCalendario
 (
-  SKCalendario INT NOT NULL,
+  SKCalendario VARCHAR NOT NULL,
   DtAno INT NOT NULL,
   DtMes INT NOT NULL,
   DtDia INT NOT NULL,
   DtCompleta DATE NOT NULL,
-  IDCalendario INT NOT NULL,
   PRIMARY KEY (SKCalendario)
 );
 
 CREATE TABLE DimProduto
 (
-  SKProduto INT NOT NULL,
+  SKProduto VARCHAR NOT NULL,
   NomeProduto VARCHAR(200) NOT NULL,
   IDProduto INT NOT NULL,
   PrecVenda FLOAT NOT NULL,
@@ -27,7 +26,7 @@ CREATE TABLE DimProduto
 
 CREATE TABLE DimCliente
 (
-  SKCliente INT NOT NULL,
+  SKCliente VARCHAR NOT NULL,
   IDCliente INT NOT NULL,
   NomeCliente VARCHAR(200) NOT NULL,
   BairroCliente VARCHAR(200) NOT NULL,
@@ -39,9 +38,9 @@ CREATE TABLE FatoReceita
 (
   IDReceita INT NOT NULL,
   Quantidade INT NOT NULL,
-  SKCalendario INT NOT NULL,
-  SKProduto INT NOT NULL,
-  SKCliente INT NOT NULL,
+  SKCalendario VARCHAR NOT NULL,
+  SKProduto VARCHAR NOT NULL,
+  SKCliente VARCHAR NOT NULL,
   PRIMARY KEY (IDReceita),
   FOREIGN KEY (SKCalendario) REFERENCES DimCalendario(SKCalendario),
   FOREIGN KEY (SKProduto) REFERENCES DimProduto(SKProduto),
@@ -50,7 +49,7 @@ CREATE TABLE FatoReceita
 
 CREATE TABLE DimFornecedor
 (
-  SKFornecedor INT NOT NULL,
+  SKFornecedor VARCHAR NOT NULL,
   IDFornecedor INT NOT NULL,
   CNPJ VARCHAR(200) NOT NULL,
   NomeFornecedor VARCHAR(200) NOT NULL,
@@ -62,9 +61,9 @@ CREATE TABLE FatoDespesa
   IDDespesa INT NOT NULL,
   Quantidade INT NOT NULL,
   PrecoCompra INT NOT NULL,
-  SKFornecedor INT NOT NULL,
-  SKCalendario INT NOT NULL,
-  SKProduto INT NOT NULL,
+  SKFornecedor VARCHAR NOT NULL,
+  SKCalendario VARCHAR NOT NULL,
+  SKProduto VARCHAR NOT NULL,
   PRIMARY KEY (IDDespesa),
   FOREIGN KEY (SKFornecedor) REFERENCES DimFornecedor(SKFornecedor),
   FOREIGN KEY (SKCalendario) REFERENCES DimCalendario(SKCalendario),
