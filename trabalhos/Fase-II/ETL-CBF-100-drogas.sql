@@ -162,6 +162,7 @@ SELECT
     cli.UFCliente,
     dp.nomeproduto,
     dp.categproduto,
+    dp.precvenda,
     dc.dtcompleta AS data_transacao,
     dc.dtsemana AS dia_da_semana,
     dc.dtdia AS dia,
@@ -177,19 +178,20 @@ CREATE OR REPLACE VIEW vw_fatoreceita_agregada AS
 SELECT 
     fa.ValorTotal AS valor_total_receita,
     fa.QuantidadeTotal AS quantidade_vendida_dia,
-    dc.dtcompleta AS data_transacao,
-    dc.dtsemana AS dia_da_semana,
-    dc.dtdia AS dia,
-    dc.dtmes AS mes,
-    dc.dttrimestre AS trismeste,
-    dc.dtano AS ano,
     cli.nomecliente,
     cli.RuaCliente,
     cli.BairroCliente,
     cli.MunicipioCliente,
     cli.UFCliente,
     dp.nomeproduto,
-    dp.categproduto
+    dp.categproduto,
+    dp.precvenda,
+    dc.dtcompleta AS data_transacao,
+    dc.dtsemana AS dia_da_semana,
+    dc.dtdia AS dia,
+    dc.dtmes AS mes,
+    dc.dttrimestre AS trismeste,
+    dc.dtano AS ano
 FROM dw_cbf.FatoReceitaAgregada fa
 JOIN dw_cbf.dimcalendario dc ON fa.SKCalendario = dc.SKCalendario
 JOIN dw_cbf.dimproduto dp ON fa.SKProduto = dp.SKProduto
