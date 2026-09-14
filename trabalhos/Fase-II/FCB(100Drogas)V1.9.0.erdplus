@@ -6,11 +6,11 @@
         "id": "cf435bbb-04ea-486d-99fc-7b02f6c62434",
         "type": "Table",
         "position": {
-          "x": 715,
-          "y": 230
+          "x": 661.573126654501,
+          "y": 64.86573839148518
         },
         "data": {
-          "label": "FatoReceita",
+          "label": "FatoReceitaAgregada",
           "isConnectable": false,
           "columns": [
             {
@@ -23,7 +23,7 @@
             },
             {
               "id": "9a793529-339c-42ef-b3bb-4b2417fddf9d",
-              "name": "Quantidade",
+              "name": "QuantidadeTotal",
               "type": "INT",
               "position": 0,
               "isPrimaryKey": false
@@ -40,7 +40,8 @@
                   {
                     "id": "fk_5a68c45e-83f0-4d65-bf97-b2617851ae8a",
                     "name": "SKCalendario",
-                    "type": "INT"
+                    "type": "CHAR(n)",
+                    "size": "200"
                   }
                 ]
               }
@@ -57,7 +58,8 @@
                   {
                     "id": "fk_395c873d-6487-4dbc-9bf5-20929684a8e8",
                     "name": "SKProduto",
-                    "type": "INT"
+                    "type": "VARCHAR(n)",
+                    "size": "200"
                   }
                 ]
               }
@@ -74,10 +76,17 @@
                   {
                     "id": "fk_a73aaa8b-1325-4724-8056-b96741ffd2fc",
                     "name": "SKCliente",
-                    "type": "INT"
+                    "type": "VARCHAR(n)",
+                    "size": "200"
                   }
                 ]
               }
+            },
+            {
+              "id": "d91901e7-90a8-4fd0-8352-2df7d1ce727a",
+              "name": "ValorTotal",
+              "type": "INT",
+              "position": 0
             }
           ],
           "isSelected": false,
@@ -85,9 +94,10 @@
         },
         "measured": {
           "width": 240,
-          "height": 154
+          "height": 178
         },
-        "selected": false
+        "selected": false,
+        "dragging": false
       },
       {
         "id": "e1cbbaba-9919-460e-9273-614c6a205f8b",
@@ -103,10 +113,11 @@
             {
               "id": "395c873d-6487-4dbc-9bf5-20929684a8e8",
               "name": "SKProduto",
-              "type": "INT",
+              "type": "VARCHAR(n)",
               "position": 0,
               "isPrimaryKey": true,
-              "isOptional": false
+              "isOptional": false,
+              "size": "200"
             },
             {
               "id": "7456219e-a222-4e34-ab30-9f2ccf077885",
@@ -132,13 +143,20 @@
               "name": "IDPrateleira",
               "type": "INT",
               "position": 0
+            },
+            {
+              "id": "172e5ead-cbd1-43ec-b751-59514071a81e",
+              "name": "CategProduto",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "size": "200"
             }
           ],
           "isSelected": false
         },
         "measured": {
           "width": 240,
-          "height": 150
+          "height": 174
         },
         "selected": false,
         "dragging": false
@@ -147,8 +165,8 @@
         "id": "aa04dba5-5647-43c6-bdd0-a07e4e83c6b6",
         "type": "Table",
         "position": {
-          "x": 379.41636297335356,
-          "y": 49.49453352036588
+          "x": 276.73287326620135,
+          "y": -22.072747184619004
         },
         "data": {
           "label": "DimCalendario",
@@ -157,10 +175,11 @@
             {
               "id": "5a68c45e-83f0-4d65-bf97-b2617851ae8a",
               "name": "SKCalendario",
-              "type": "INT",
+              "type": "CHAR(n)",
               "position": 0,
               "isPrimaryKey": true,
-              "isOptional": false
+              "isOptional": false,
+              "size": "200"
             },
             {
               "id": "a1d7ad3a-62d1-4e4a-80de-ddfcca86c383",
@@ -194,13 +213,26 @@
               "name": "IDCalendario",
               "type": "INT",
               "position": 0
+            },
+            {
+              "id": "cb789ab7-4609-440c-bf05-f7e5b8e8e08b",
+              "name": "DtTrimestre",
+              "type": "INT",
+              "position": 0
+            },
+            {
+              "id": "e89a80b7-dd4a-43bd-b595-ccfb94847c9a",
+              "name": "DtSemana",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "size": "20"
             }
           ],
           "isSelected": false
         },
         "measured": {
           "width": 240,
-          "height": 174
+          "height": 224
         },
         "selected": false,
         "dragging": false
@@ -219,10 +251,11 @@
             {
               "id": "a73aaa8b-1325-4724-8056-b96741ffd2fc",
               "name": "SKCliente",
-              "type": "INT",
+              "type": "VARCHAR(n)",
               "position": 0,
               "isPrimaryKey": true,
-              "isOptional": false
+              "isOptional": false,
+              "size": "200"
             },
             {
               "id": "736c1d01-4abf-4081-8e67-25467823c0d6",
@@ -250,13 +283,27 @@
               "type": "VARCHAR(n)",
               "position": 0,
               "size": "200"
+            },
+            {
+              "id": "d1b44667-1e2c-44c4-ab48-9aedbd5734e5",
+              "name": "MunicipioCliente",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "size": "200"
+            },
+            {
+              "id": "df90d062-735f-4790-b2b5-9f3d94820312",
+              "name": "UFCliente",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "size": "200"
             }
           ],
           "isSelected": false
         },
         "measured": {
           "width": 240,
-          "height": 150
+          "height": 199
         },
         "selected": false,
         "dragging": false
@@ -265,8 +312,8 @@
         "id": "efe399c1-0782-4bf6-92d9-081997629aa8",
         "type": "Table",
         "position": {
-          "x": 710.7762205810213,
-          "y": 462.34754131045605
+          "x": 678.8209472547023,
+          "y": 367.8131910534291
         },
         "data": {
           "label": "FatoDespesa",
@@ -298,7 +345,8 @@
                   {
                     "id": "fk_9ddfc329-942f-43da-ab60-fa797397a630",
                     "name": "SKFornecedor",
-                    "type": "INT"
+                    "type": "VARCHAR(n)",
+                    "size": "200"
                   }
                 ]
               }
@@ -315,7 +363,8 @@
                   {
                     "id": "fk_5a68c45e-83f0-4d65-bf97-b2617851ae8a",
                     "name": "SKCalendario",
-                    "type": "INT"
+                    "type": "CHAR(n)",
+                    "size": "200"
                   }
                 ]
               }
@@ -332,7 +381,8 @@
                   {
                     "id": "fk_395c873d-6487-4dbc-9bf5-20929684a8e8",
                     "name": "SKProduto",
-                    "type": "INT"
+                    "type": "VARCHAR(n)",
+                    "size": "200"
                   }
                 ]
               }
@@ -344,11 +394,12 @@
               "position": 0
             }
           ],
-          "isSelected": false
+          "isSelected": false,
+          "isFactTable": true
         },
         "measured": {
           "width": 240,
-          "height": 175
+          "height": 178
         },
         "selected": false,
         "dragging": false
@@ -357,8 +408,8 @@
         "id": "4f2ceca4-0162-41c1-82ef-17b59c971b08",
         "type": "Table",
         "position": {
-          "x": 370.0463544087022,
-          "y": 441.04345014724396
+          "x": 335.2840692371229,
+          "y": 370.8465419308831
         },
         "data": {
           "label": "DimFornecedor",
@@ -367,10 +418,11 @@
             {
               "id": "9ddfc329-942f-43da-ab60-fa797397a630",
               "name": "SKFornecedor",
-              "type": "INT",
+              "type": "VARCHAR(n)",
               "position": 0,
               "isPrimaryKey": true,
-              "isOptional": false
+              "isOptional": false,
+              "size": "200"
             },
             {
               "id": "91a681a9-8b05-4d51-8d16-afbc6d54b32b",
@@ -398,6 +450,121 @@
         "measured": {
           "width": 240,
           "height": 125
+        },
+        "selected": true,
+        "dragging": false
+      },
+      {
+        "id": "cbb448fb-10ba-4256-a6cb-aef004318ee6",
+        "type": "Table",
+        "position": {
+          "x": 676.555103090335,
+          "y": -262.54155159476954
+        },
+        "data": {
+          "label": "FatoReceitaDetalhada",
+          "isConnectable": false,
+          "columns": [
+            {
+              "id": "52088df0-aaf7-444f-b278-4b015fb0b4ce",
+              "name": "IDReceitaDet",
+              "type": "INT",
+              "position": 0,
+              "isPrimaryKey": true,
+              "isOptional": false
+            },
+            {
+              "id": "6c19993c-badc-4415-99f1-39fdf85a42f8",
+              "name": "IDCompra",
+              "type": "INT",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "b44e9bf0-a269-44e1-845d-773879d4bff2",
+              "name": "Hora",
+              "type": "DATE",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "28f1ab72-0eda-422d-907f-489540787c74",
+              "name": "Quantidade",
+              "type": "INT",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "2d6269dc-7a47-4fb3-9a06-174bbfea9c32",
+              "name": "Valor",
+              "type": "INT",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "fk_0b9fb204-b5f9-436e-a0dd-b17563704280",
+              "name": "fk_DimCalendario",
+              "type": "None",
+              "isForeignKey": true,
+              "foreignKeyProps": {
+                "foreignKeyGroupId": "71300ce3-ce18-4da2-bade-5fe1808941ce",
+                "sourceTableId": "aa04dba5-5647-43c6-bdd0-a07e4e83c6b6",
+                "columns": [
+                  {
+                    "id": "fk_5a68c45e-83f0-4d65-bf97-b2617851ae8a",
+                    "name": "SKCalendario",
+                    "type": "CHAR(n)",
+                    "size": "200"
+                  }
+                ]
+              },
+              "isPrimaryKey": false
+            },
+            {
+              "id": "fk_42650429-fc80-4e43-a64a-47dd69831146",
+              "name": "fk_DimProduto",
+              "type": "None",
+              "isForeignKey": true,
+              "foreignKeyProps": {
+                "foreignKeyGroupId": "281b3ad3-a79a-4b7c-b9dc-15edfc6c17e5",
+                "sourceTableId": "e1cbbaba-9919-460e-9273-614c6a205f8b",
+                "columns": [
+                  {
+                    "id": "fk_395c873d-6487-4dbc-9bf5-20929684a8e8",
+                    "name": "SKProduto",
+                    "type": "VARCHAR(n)",
+                    "size": "200"
+                  }
+                ]
+              },
+              "isPrimaryKey": false
+            },
+            {
+              "id": "fk_d910b721-1c28-4ee0-b054-cfa964089b74",
+              "name": "fk_DimCliente",
+              "type": "None",
+              "isForeignKey": true,
+              "foreignKeyProps": {
+                "foreignKeyGroupId": "04e8f1c9-6c19-4012-800e-6a30fb883732",
+                "sourceTableId": "d137320e-13b2-486d-9531-dacb4d7fe88e",
+                "columns": [
+                  {
+                    "id": "fk_a73aaa8b-1325-4724-8056-b96741ffd2fc",
+                    "name": "SKCliente",
+                    "type": "VARCHAR(n)",
+                    "size": "200"
+                  }
+                ]
+              },
+              "isPrimaryKey": false
+            }
+          ],
+          "isSelected": false,
+          "isFactTable": true
+        },
+        "measured": {
+          "width": 240,
+          "height": 228
         },
         "selected": false,
         "dragging": false
@@ -541,12 +708,84 @@
             ]
           }
         }
+      },
+      {
+        "id": "aa04dba5-5647-43c6-bdd0-a07e4e83c6b6->cbb448fb-10ba-4256-a6cb-aef004318ee6_71300ce3-ce18-4da2-bade-5fe1808941ce",
+        "type": "Relational",
+        "source": "aa04dba5-5647-43c6-bdd0-a07e4e83c6b6",
+        "targetHandle": "foreign-key-handle-71300ce3-ce18-4da2-bade-5fe1808941ce",
+        "target": "cbb448fb-10ba-4256-a6cb-aef004318ee6",
+        "markerStart": {
+          "type": "arrow"
+        },
+        "data": {
+          "foreignKeyProps": {
+            "foreignKeyGroupId": "71300ce3-ce18-4da2-bade-5fe1808941ce",
+            "sourceTableId": "aa04dba5-5647-43c6-bdd0-a07e4e83c6b6",
+            "columns": [
+              {
+                "id": "fk_5a68c45e-83f0-4d65-bf97-b2617851ae8a",
+                "name": "SKCalendario",
+                "type": "CHAR(n)",
+                "size": "200"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "e1cbbaba-9919-460e-9273-614c6a205f8b->cbb448fb-10ba-4256-a6cb-aef004318ee6_281b3ad3-a79a-4b7c-b9dc-15edfc6c17e5",
+        "type": "Relational",
+        "source": "e1cbbaba-9919-460e-9273-614c6a205f8b",
+        "targetHandle": "foreign-key-handle-281b3ad3-a79a-4b7c-b9dc-15edfc6c17e5",
+        "target": "cbb448fb-10ba-4256-a6cb-aef004318ee6",
+        "markerStart": {
+          "type": "arrow"
+        },
+        "data": {
+          "foreignKeyProps": {
+            "foreignKeyGroupId": "281b3ad3-a79a-4b7c-b9dc-15edfc6c17e5",
+            "sourceTableId": "e1cbbaba-9919-460e-9273-614c6a205f8b",
+            "columns": [
+              {
+                "id": "fk_395c873d-6487-4dbc-9bf5-20929684a8e8",
+                "name": "SKProduto",
+                "type": "VARCHAR(n)",
+                "size": "200"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "d137320e-13b2-486d-9531-dacb4d7fe88e->cbb448fb-10ba-4256-a6cb-aef004318ee6_04e8f1c9-6c19-4012-800e-6a30fb883732",
+        "type": "Relational",
+        "source": "d137320e-13b2-486d-9531-dacb4d7fe88e",
+        "targetHandle": "foreign-key-handle-04e8f1c9-6c19-4012-800e-6a30fb883732",
+        "target": "cbb448fb-10ba-4256-a6cb-aef004318ee6",
+        "markerStart": {
+          "type": "arrow"
+        },
+        "data": {
+          "foreignKeyProps": {
+            "foreignKeyGroupId": "04e8f1c9-6c19-4012-800e-6a30fb883732",
+            "sourceTableId": "d137320e-13b2-486d-9531-dacb4d7fe88e",
+            "columns": [
+              {
+                "id": "fk_a73aaa8b-1325-4724-8056-b96741ffd2fc",
+                "name": "SKCliente",
+                "type": "VARCHAR(n)",
+                "size": "200"
+              }
+            ]
+          }
+        }
       }
     ],
     "viewport": {
-      "x": 186.42856682916738,
-      "y": 59.754634472903376,
-      "zoom": 0.6757543380332252
+      "x": 180.92903178710458,
+      "y": 195.70354226807706,
+      "zoom": 0.7465618525989585
     }
   },
   "name": "FCB_dimensional",
@@ -557,5 +796,5 @@
     "id": 269155
   },
   "id": 583072,
-  "updatedAtTimestamp": 1789221045
+  "updatedAtTimestamp": 1789340809
 }

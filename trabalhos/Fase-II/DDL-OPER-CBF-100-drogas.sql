@@ -118,7 +118,7 @@ CREATE TABLE ProdCateg
 CREATE TABLE FornEstoque
 (
   PrecoCompra FLOAT NOT NULL,
-  DataCompra DATE NOT NULL,
+  DataCompra TIMESTAMP NOT NULL,
   QtdCompra INT NOT NULL,
   IDCompra INT NOT NULL,
   IDFornecedor INT NOT NULL,
@@ -141,7 +141,7 @@ CREATE TABLE CliCompraProd
 (
   Quantidade INT NOT NULL,
   IDCompra INT NOT NULL,
-  DataCompra DATE NOT NULL,
+  DataCompra TIMESTAMP NOT NULL,
   IDCliente INT NOT NULL,
   IDProduto INT NOT NULL,
   PRIMARY KEY (IDProduto, IDCompra),

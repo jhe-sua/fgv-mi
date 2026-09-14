@@ -28,5 +28,8 @@ Minimundo: CBF farmacia
 - Dashboard
 
 
-\copy (SELECT * FROM dw_cbf.vw_fatoreceita) TO 'receitas.csv' WITH CSV HEADER DELIMITER ',' ENCODING 'UTF8';
-\copy (SELECT * FROM dw_cbf.vw_fatodespesa) TO 'despesas.csv' WITH CSV HEADER DELIMITER ',' ENCODING 'UTF8';
+\copy (SELECT * FROM dw_cbf.vw_fatoreceita_detalhada) TO 'receita_detalhada.csv' WITH CSV HEADER DELIMITER ',' ENCODING 'UTF8';
+
+\copy (SELECT * FROM dw_cbf.vw_fatoreceita_agregada) TO 'receita_agregada.csv' WITH CSV HEADER DELIMITER ',' ENCODING 'UTF8';
+
+\copy (SELECT * FROM dw_cbf.vw_fatodespesa) TO 'despesa.csv' WITH CSV HEADER DELIMITER ',' ENCODING 'UTF8';

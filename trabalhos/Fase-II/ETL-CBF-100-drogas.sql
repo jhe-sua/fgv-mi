@@ -6,7 +6,8 @@ TRUNCATE TABLE
     dimfornecedor,
     dimproduto,
     fatodespesa,
-    fatoreceita
+    FatoReceitaDetalhada,
+    FatoReceitaAgregada
 CASCADE;
 
 INSERT INTO dw_cbf.dimcliente
@@ -15,9 +16,14 @@ select
     c.idcliente,
     c.nomecliente,
     c.bairro,
-    c.rua
+    c.rua,
+    m.NomeMunicipio,
+    m.IDUF AS Estado
 from
-    oper_cbf.cliente c;
+    oper_cbf.cliente c
+    LEFT JOIN oper_cbf.Municipio m
+        ON  c.IDMunicipio = m.IDMunicipio 
+        AND c.IDUF = m.IDUF;
 
 INSERT INTO dimfornecedor
 select
@@ -28,15 +34,27 @@ select
 from
     oper_cbf.fornecedor f;
 
+with CategoriaUnica AS (
+    SELECT 
+        pc.IDProduto,
+        c.NomeCategoria,
+        ROW_NUMBER() OVER(PARTITION BY pc.IDProduto ORDER BY pc.IDCategoria) as rn
+    FROM oper_cbf.ProdCateg pc
+    INNER JOIN oper_cbf.Categoria c ON pc.IDCategoria = c.IDCategoria
+)
+
 INSERT INTO dimproduto
 select
     gen_random_uuid(),
     p.nomeproduto,
     p.idproduto,
     p.precvenda,
-    p.idpratileira
+    p.idpratileira,
+    cu.NomeCategoria
 from
-    oper_cbf.produto p;
+    oper_cbf.produto p
+    LEFT JOIN CategoriaUnica cu ON p.IDProduto = cu.IDProduto AND cu.rn = 1;
+    
 
 INSERT INTO dimcalendario
 select
@@ -44,13 +62,17 @@ select
     a.dtano,
     a.dtmes,
     a.dtdia,
-    a.dtcompleta
+    a.dtcompleta,
+    a.dttrimeste,
+    a.dtsemana
 from (
     select distinct
-        extract(year from cp.datacompra) as dtano,
-        extract(month from cp.datacompra)     as dtmes,
-        extract(day from cp.datacompra)  as dtdia,
-        cast(cp.datacompra as date)      as dtcompleta
+        extract(year from cp.datacompra)    as dtano,
+        extract(month from cp.datacompra)   as dtmes,
+        extract(day from cp.datacompra)     as dtdia,
+        cast(cp.datacompra as date)         as dtcompleta,
+        extract(quarter from cp.datacompra) as dttrimeste,
+        to_char(cp.datacompra, 'Day')       as dtSemana
     from
         oper_cbf.clicompraprod cp 
 ) as a;
@@ -62,23 +84,29 @@ select
     a.dtano,
     a.dtmes,
     a.dtdia,
-    a.dtcompleta
+    a.dtcompleta,
+    a.dttrimeste,
+    a.dtsemana
 from (
     select distinct
-        extract(year from fe.datacompra) as dtano,
-        extract(month from fe.datacompra)     as dtmes,
-        extract(day from fe.datacompra)  as dtdia,
-        cast(fe.datacompra as date)      as dtcompleta
+        extract(year from fe.datacompra)    as dtano,
+        extract(month from fe.datacompra)   as dtmes,
+        extract(day from fe.datacompra)     as dtdia,
+        cast(fe.datacompra as date)         as dtcompleta,
+        extract(quarter from fe.datacompra) as dttrimeste,
+        to_char(fe.datacompra, 'Day')       as dtSemana
     from
         oper_cbf.fornestoque fe
     where 
         cast(fe.datacompra as date) not in (select dtcompleta from dw_cbf.dimcalendario)
 ) as a;
 
-INSERT INTO fatoreceita
+INSERT INTO FatoReceitaDetalhada
 select
-    cp.idcompra as idreceita,
+    cp.idcompra as idreceitadet,
+    CAST(cp.datacompra as TIME) as hora,
     cp.quantidade,
+    cp.quantidade * p.PrecVenda as Valor,
     dwa.SKCalendario,
     dwp.SKProduto,
     dwc.SKCliente
@@ -89,6 +117,20 @@ from
     inner join dw_cbf.dimproduto dwp on dwp.idproduto = p.idproduto
     inner join dw_cbf.dimcliente dwc on dwc.idcliente = c.idcliente
     inner join dw_cbf.dimcalendario dwa on dwa.dtcompleta = cast(cp.datacompra as date);
+
+INSERT INTO FatoReceitaAgregada
+select
+    SUM(quantidade) AS QuantidadeTotal,
+    SUM(Valor) AS ValorTotal,
+    SKCalendario,
+    SKProduto,
+    SKCliente
+from
+    FatoReceitaDetalhada
+group by
+    SKCalendario,
+    SKProduto,
+    SKCliente;
 
 INSERT INTO fatodespesa
 select
@@ -107,27 +149,65 @@ from
     inner join dw_cbf.dimcalendario dwa on dwa.dtcompleta = cast(fe.datacompra as date);
 
 -- View para Receitas
-CREATE OR REPLACE VIEW vw_fatoreceita AS
+CREATE OR REPLACE VIEW vw_fatoreceita_detalhada AS
 SELECT 
-    fr.idreceita,
-    dc.dtcompleta AS data_transacao,
-    cli.nomecliente,
-    dp.nomeproduto,
+    fr.Valor AS valor_total_receita,
     fr.quantidade,
-    dp.precvenda AS preco_unitario,
-    (fr.quantidade * dp.precvenda) AS valor_total_receita
-FROM dw_cbf.fatoreceita fr
+    fr.idcompra AS id_pedido,
+    fr.hora,
+    cli.nomecliente,
+    cli.RuaCliente,
+    cli.BairroCliente,
+    cli.MunicipioCliente,
+    cli.UFCliente,
+    dp.nomeproduto,
+    dp.categproduto,
+    dc.dtcompleta AS data_transacao,
+    dc.dtsemana AS dia_da_semana,
+    dc.dtdia AS dia,
+    dc.dtmes AS mes,
+    dc.dttrimestre AS trismeste,
+    dc.dtano AS ano
+FROM dw_cbf.FatoReceitaDetalhada fr
 JOIN dw_cbf.dimcalendario dc ON fr.SKCalendario = dc.SKCalendario
 JOIN dw_cbf.dimproduto dp ON fr.SKProduto = dp.SKProduto
 JOIN dw_cbf.dimcliente cli ON fr.SKCliente = cli.SKCliente;
+
+CREATE OR REPLACE VIEW vw_fatoreceita_agregada AS
+SELECT 
+    fa.ValorTotal AS valor_total_receita,
+    fa.QuantidadeTotal AS quantidade_vendida_dia,
+    dc.dtcompleta AS data_transacao,
+    dc.dtsemana AS dia_da_semana,
+    dc.dtdia AS dia,
+    dc.dtmes AS mes,
+    dc.dttrimestre AS trismeste,
+    dc.dtano AS ano,
+    cli.nomecliente,
+    cli.RuaCliente,
+    cli.BairroCliente,
+    cli.MunicipioCliente,
+    cli.UFCliente,
+    dp.nomeproduto,
+    dp.categproduto
+FROM dw_cbf.FatoReceitaAgregada fa
+JOIN dw_cbf.dimcalendario dc ON fa.SKCalendario = dc.SKCalendario
+JOIN dw_cbf.dimproduto dp ON fa.SKProduto = dp.SKProduto
+JOIN dw_cbf.dimcliente cli ON fa.SKCliente = cli.SKCliente;
 
 -- View para Despesas
 CREATE OR REPLACE VIEW vw_fatodespesa AS
 SELECT 
     fd.iddespesa,
     dc.dtcompleta AS data_transacao,
+    dc.dtsemana AS dia_da_semana,
+    dc.dtdia AS dia,
+    dc.dtmes AS mes,
+    dc.dttrimestre AS trismeste,
+    dc.dtano AS ano,
     df.nomefornecedor,
     dp.nomeproduto,
+    dp.categproduto,
     fd.quantidade,
     (fd.precocompra / fd.quantidade) AS preco_unitario,
     fd.precocompra AS valor_total_despesa

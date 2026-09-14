@@ -1,5 +1,5 @@
 import random
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from faker import Faker
 
 # Inicializa o Faker configurado para o Brasil
@@ -57,6 +57,11 @@ def write_batches(f, table_name, columns, data, batch_size=200):
                     row_str.append(f"'{val_clean}'")
             values.append(f"({', '.join(row_str)})")
         f.write(",\n".join(values) + ";\n\n")
+
+custos_base_produtos = {
+    p_id: round(abs(random.gauss(200, 100)) + 50, 2) # Custo médio de R$ 250, mínimo de 50
+    for p_id in range(1, QTD_PRODUTOS + 1)
+}
 
 def main():
     print("Gerando dados, aguarde...")
@@ -177,28 +182,29 @@ def main():
 
         # 8. FornEstoque (Chave Primaria Dupla: Fornecedor e Prateleira)
         dados_fornestoque = []
-        id_compra_seq = 1 # Incremento único para a Chave Primária
-        
-        QTD_TRANSACOES = 300 # Simulando 300 notas fiscais/pedidos de compra
+        id_compra_seq = 1 
+
+        QTD_TRANSACOES = 300 
         ids_produtos = list(range(1, QTD_PRODUTOS + 1))
-        
+
         for _ in range(QTD_TRANSACOES):
-            # 1. Dados do "Cabeçalho" da transação (iguais para todas as linhas)
             f_id = random.choice(ids_forn)
-            dt_compra = fake.date_between(start_date='-1y', end_date='today')
             
-            # 2. Sorteia quantos produtos diferentes essa transação terá (ex: 1 a 12 produtos)
+            # AJUSTE 1: A data de compra do fornecedor agora também começa em -2y
+            dt_compra = fake.date_time_between(start_date='-2y', end_date='now')
+            
             qtd_linhas = random.randint(1, 12)
-            
-            # Garante que não haja produtos repetidos na mesma transação usando sample
             produtos_da_transacao = random.sample(ids_produtos, qtd_linhas)
             
             for p_id in produtos_da_transacao:
-                # 3. Dados da "Linha" do produto
-                preco_c = round(abs(random.gauss(2000, 1000)),2)
-                qtd_compra = random.randint(10, 500)
+                # AJUSTE 2: Preço de compra gira em torno do custo base daquele produto específico (variação de +/- 10%)
+                fator_variacao = random.uniform(0.9, 1.1) 
+                preco_c = round(custos_base_produtos[p_id] * fator_variacao, 2)
                 
-                # Anexa a linha mantendo a data e fornecedor da transação atual
+                # AJUSTE 3: Quantidade comprada reduzida para evitar excesso de estoque (ajuste conforme seu QTD_COMPRAS)
+                # Se você vende ~3 unidades por pedido, comprar entre 10 e 50 por vez faz mais sentido para 300 transações
+                qtd_compra = random.randint(10, 60) 
+                
                 dados_fornestoque.append((
                     id_compra_seq, 
                     preco_c, 
@@ -208,7 +214,6 @@ def main():
                     p_id
                 ))
                 
-                # Incrementa o ID da compra para a próxima linha
                 id_compra_seq += 1
 
         write_batches(
@@ -267,12 +272,12 @@ def main():
         dados_clicompra = []
 
         for i in range(QTD_COMPRAS):
-            # Usar i + 1 garante um ID único e sequencial para cada compra (1, 2, 3...)
             id_compra = i + 1 
-            
             id_prod = random.randint(1, QTD_PRODUTOS)
-            qtd = random.randint(1, 5)
-            dt_compra = fake.date_between(start_date='-2y', end_date='today')
+            qtd = random.randint(1, 5) # Clientes compram poucas unidades por vez
+            
+            # Ajustado para -2y para bater com o início das compras de estoque
+            dt_compra = fake.date_time_between(start_date='-2y', end_date='now') 
             id_cli = random.choice(ids_clientes)
             
             dados_clicompra.append((qtd, id_compra, dt_compra, id_cli, id_prod))
