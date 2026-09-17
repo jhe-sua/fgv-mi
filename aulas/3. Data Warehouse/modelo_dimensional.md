@@ -1,6 +1,6 @@
 # Modelo Dimensional
 
-Ele possui uma tabela **Fato** e tabelas **Dimensão** que se conectam aos fatos. Cotinuamos tendo conceitos de chave primaria e estrangeira apenas muda conceitualmente na parte da PK
+Ele possui uma tabela **Fato** e tabelas **Dimensão** que se conectam aos fatos seguindo dois principios: Cada informação de cada dimensão deve ser unica para cada linha da tabela fato (pois se um fato aconteceu com dois parametros diferentes, por exemplo um cliente foi atendido por dois atendentes na mesma tranção, então não podemos colocar um atendente ou outro, ou os dois, devemos realizar outra abordagem) e cada informação de cada dimensão deve existir no momento atual do registro de uma linha na tabela fato (pois o fato registra o acontecido, não tem como registrar informações que ainda não existem. como por exemplo quando um cliente faz uma compra e fica na tabela fato, entãoa depois de duas semanas o entregador faz a entrega e coloca o estatus como enviado. NÃO podemos modificar a compra do cliente e colocar o estatus como entregue pois esse registro é de duas semanas atras e nesse momento não tinha sido entregue, nesse caso é criado o Fato_entregas tambem). Cotinuamos tendo conceitos de chave primaria e estrangeira apenas muda conceitualmente na parte da PK
 
 **Star Schema** <br>
 É o modelo dimensional que possui um fato e dimensões ao redor do fato, cada dimensão não possui tabelas filhas. não segue a terceira forma normal.
@@ -10,6 +10,7 @@ Ele possui uma tabela **Fato** e tabelas **Dimensão** que se conectam aos fatos
 
 **Snowflake model**
 É o modelo dimensional que possui um fato e dimensões ao redor do fato, cada dimensão pode possuir tabelas filhas. Pode seguir a terceira forma normal.
+
 
 ## Dimensão
 Conceitualmente são caracteristicas de um fato, são os dados que me permitem analizar o fato. Existem perguntas que o fato quer responder, a traves dessas perguntas podemos escolher as dimensões. Geralmente são tabelas mais fixas, não são atualizadas com tanta frequencia.
@@ -30,6 +31,9 @@ Contem as FKs das Sugorrates Keys, e as metrificações que servem para responde
 
 > NOTE: Como definir a PK de um fato? quais são os erros que podem acontecer?
 > É definida uma PK composta, aqui não criamos uma sugorrate key, pois isso traria mais problemas, queremos que a tabela fato seja o fato mesmo, então as informações não mudam,é informacao imutavel, logo não é necessario criar uma SK.
+> 
+> 
+_Fatos legais_: Fato_defeito, Fato_agregado, Fato_vendas, Fato_compras
 
 **Fato detalhado vs Fato agregado**
 

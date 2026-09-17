@@ -36,6 +36,9 @@ CREATE TABLE DimCliente
   RuaCliente VARCHAR(200) NOT NULL,
   MunicipioCliente VARCHAR(200) NOT NULL,
   UFCliente VARCHAR(200) NOT NULL,
+  DtInicioCliente date NOT NULL,
+  DtFimCliente date NOT NULL,
+  FlagAtualCliente Boolean NOT NULL,
   PRIMARY KEY (SKCliente)
 );
 

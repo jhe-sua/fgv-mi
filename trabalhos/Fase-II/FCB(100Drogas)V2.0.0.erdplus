@@ -14,14 +14,6 @@
           "isConnectable": false,
           "columns": [
             {
-              "id": "2345eca7-a849-47b4-bbbf-80a68593bdaa",
-              "name": "IDReceita",
-              "type": "INT",
-              "position": 0,
-              "isPrimaryKey": true,
-              "isOptional": false
-            },
-            {
               "id": "9a793529-339c-42ef-b3bb-4b2417fddf9d",
               "name": "QuantidadeTotal",
               "type": "INT",
@@ -44,7 +36,9 @@
                     "size": "200"
                   }
                 ]
-              }
+              },
+              "isPrimaryKey": true,
+              "isOptional": false
             },
             {
               "id": "fk_018aba0e-6226-4fff-8aaf-5e4158cb4c8a",
@@ -62,7 +56,9 @@
                     "size": "200"
                   }
                 ]
-              }
+              },
+              "isPrimaryKey": true,
+              "isOptional": false
             },
             {
               "id": "fk_0722f973-0745-4a50-9dc4-40846a042c42",
@@ -80,13 +76,16 @@
                     "size": "200"
                   }
                 ]
-              }
+              },
+              "isPrimaryKey": true,
+              "isOptional": false
             },
             {
               "id": "d91901e7-90a8-4fd0-8352-2df7d1ce727a",
               "name": "ValorTotal",
               "type": "INT",
-              "position": 0
+              "position": 0,
+              "isPrimaryKey": false
             }
           ],
           "isSelected": false,
@@ -94,7 +93,7 @@
         },
         "measured": {
           "width": 240,
-          "height": 178
+          "height": 154
         },
         "selected": false,
         "dragging": false
@@ -156,7 +155,7 @@
         },
         "measured": {
           "width": 240,
-          "height": 174
+          "height": 176
         },
         "selected": false,
         "dragging": false
@@ -209,12 +208,6 @@
               "position": 0
             },
             {
-              "id": "0390aa9f-7a01-412b-a606-4edb773bfae4",
-              "name": "IDCalendario",
-              "type": "INT",
-              "position": 0
-            },
-            {
               "id": "cb789ab7-4609-440c-bf05-f7e5b8e8e08b",
               "name": "DtTrimestre",
               "type": "INT",
@@ -232,7 +225,7 @@
         },
         "measured": {
           "width": 240,
-          "height": 224
+          "height": 201
         },
         "selected": false,
         "dragging": false
@@ -297,13 +290,31 @@
               "type": "VARCHAR(n)",
               "position": 0,
               "size": "200"
+            },
+            {
+              "id": "deaa7ba9-a322-4a2c-bd6b-bd6d82bf1201",
+              "name": "DtInicioCliente",
+              "type": "DATE",
+              "position": 0
+            },
+            {
+              "id": "2d4c3929-b64e-4047-9818-26cba153b606",
+              "name": "DtFimCliente",
+              "type": "DATE",
+              "position": 0
+            },
+            {
+              "id": "b20e52de-ded4-4ea6-b6a1-197c60857209",
+              "name": "FlagAtualCliente",
+              "type": "Custom",
+              "position": 0
             }
           ],
           "isSelected": false
         },
         "measured": {
           "width": 240,
-          "height": 199
+          "height": 276
         },
         "selected": false,
         "dragging": false
@@ -399,7 +410,7 @@
         },
         "measured": {
           "width": 240,
-          "height": 178
+          "height": 179
         },
         "selected": false,
         "dragging": false
@@ -425,23 +436,23 @@
               "size": "200"
             },
             {
-              "id": "91a681a9-8b05-4d51-8d16-afbc6d54b32b",
+              "id": "d0860832-19e4-46ca-b82c-2b63be1068a0",
               "name": "IDFornecedor",
               "type": "INT",
-              "position": 0
+              "position": 1
             },
             {
               "id": "f52a2b6b-ee0f-4865-87a6-7410f6fe0333",
               "name": "CNPJ",
               "type": "VARCHAR(n)",
-              "position": 0,
+              "position": 2,
               "size": "200"
             },
             {
               "id": "0ec7eee6-31b5-402a-967d-484be9126176",
               "name": "NomeFornecedor",
               "type": "VARCHAR(n)",
-              "position": 0,
+              "position": 3,
               "size": "200"
             }
           ],
@@ -449,9 +460,9 @@
         },
         "measured": {
           "width": 240,
-          "height": 125
+          "height": 126
         },
-        "selected": true,
+        "selected": false,
         "dragging": false
       },
       {
@@ -466,19 +477,12 @@
           "isConnectable": false,
           "columns": [
             {
-              "id": "52088df0-aaf7-444f-b278-4b015fb0b4ce",
-              "name": "IDReceitaDet",
-              "type": "INT",
-              "position": 0,
-              "isPrimaryKey": true,
-              "isOptional": false
-            },
-            {
               "id": "6c19993c-badc-4415-99f1-39fdf85a42f8",
               "name": "IDCompra",
               "type": "INT",
               "position": 0,
-              "isPrimaryKey": false
+              "isPrimaryKey": true,
+              "isOptional": false
             },
             {
               "id": "b44e9bf0-a269-44e1-845d-773879d4bff2",
@@ -537,7 +541,8 @@
                   }
                 ]
               },
-              "isPrimaryKey": false
+              "isPrimaryKey": true,
+              "isOptional": false
             },
             {
               "id": "fk_d910b721-1c28-4ee0-b054-cfa964089b74",
@@ -564,7 +569,7 @@
         },
         "measured": {
           "width": 240,
-          "height": 228
+          "height": 229
         },
         "selected": false,
         "dragging": false
@@ -783,18 +788,24 @@
       }
     ],
     "viewport": {
-      "x": 180.92903178710458,
-      "y": 195.70354226807706,
-      "zoom": 0.7465618525989585
+      "x": -109.1994017131824,
+      "y": 225.29309420237888,
+      "zoom": 0.5080134334548828
     }
   },
-  "name": "FCB_dimensional",
+  "name": "FCB(100Drogas)V2.0.0",
   "folder": {
-    "name": "Diagrams",
-    "folderType": 1,
-    "depth": 0,
-    "id": 269155
+    "name": "MI",
+    "folderType": 2,
+    "parentFolder": {
+      "depth": 0,
+      "id": 264937,
+      "name": "Diagrams",
+      "folderType": 1
+    },
+    "depth": 1,
+    "id": 386897
   },
-  "id": 583072,
-  "updatedAtTimestamp": 1789340809
+  "id": 586565,
+  "updatedAtTimestamp": 1789672821
 }

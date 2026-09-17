@@ -46,7 +46,7 @@ o DW comporta: dados integrados, orientados por assunto, de âmbito corporativo,
 
 **Conceitos**
 
-- _Repositorio Estruturado_: 
+- _Repositorio Estruturado_: Os dados não são alterados ou apagados (imutáveis), apenas novas cargas são inseridas.
 - _Integrado_: Ele consegue integrar informações de varias fontes internas e externas
 - _Orientado para o assunto_: Um DW é construido para analizar um assunto especifico, em geral são assuntos genericos
 - _Abrange a empressa como um todo_: o DW consegue ver a informação a analitica de forma organizada de toda a empressa, por exemplo se existissem varios predios o DW consegue enxergar todos

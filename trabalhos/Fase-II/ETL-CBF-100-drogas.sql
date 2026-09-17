@@ -10,16 +10,30 @@ TRUNCATE TABLE
     FatoReceitaAgregada
 CASCADE;
 
-INSERT INTO dw_cbf.dimcliente
-select
-    gen_random_uuid(),
+INSERT INTO dw_cbf.dimcliente (
+    SKCliente,
+    IDCliente,
+    NomeCliente,
+    BairroCliente,
+    RuaCliente,
+    MunicipioCliente,
+    UFCliente,
+    DtInicioCliente,
+    DtFimCliente,
+    FlagAtualCliente
+)
+SELECT
+    gen_random_uuid()::varchar, -- Gera a Surrogate Key única em texto
     c.idcliente,
     c.nomecliente,
     c.bairro,
     c.rua,
     m.NomeMunicipio,
-    m.IDUF AS Estado
-from
+    m.IDUF AS Estado,
+    CURRENT_DATE,               -- DtInicioCliente: Data atual do carregamento
+    '9999-12-31'::date,         -- DtFimCliente: Data limite para registro ativo
+    TRUE                        -- FlagAtualCliente: TRUE/1 (registro ativo)
+FROM
     oper_cbf.cliente c
     LEFT JOIN oper_cbf.Municipio m
         ON  c.IDMunicipio = m.IDMunicipio 

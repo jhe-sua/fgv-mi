@@ -22,7 +22,13 @@ Processo principal:
 Processos alternativos: desvios que podem ocorrer a partir do 
 processo principal
 
-# MIR 
+# Matriz de Zanchman
+
+Colunas: Dados, Processos, Localização, Pessoas, Tempo, Motivação
+
+perceba que não deve ser algo que se memoriza, deve ser algo que se entende e faz sentido, para eu realizar qualquer modelagem informacional preciso de dados, sem dados não faço nada. Dado que tenho os dados preciso saber as funeções deles, como são os processos que faço com eles. Dado que sei essas duas coisas é importantte saber onde os dados estão realmente armazenados fisicamente, eu preciso saber como guardar eles. Então sei quais dados, sei o que fazer com eles, sei onde estão fisicamente porem de nada serve sem um ator ou atores preciso saber quem que mexe com isso quem que da os dados disso, quem que mantem. Agora que sei o ator preciso saber a frequencia com que os atores realização todo esse processo, sem frequencia fica ambiguo quando o processo deve ser realizado. Finalmente motivação: o processo pode estar acontecendo todo de maneira perfeita porem a motivação não o justifica.
+
+# MIR
 
 O MIR (Modelagem informacional de Requisitos) surgiu para facilitar e guiar o processo de modelagem sem deixar tudo burocratico.
 
