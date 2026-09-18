@@ -30,7 +30,7 @@ SELECT
     c.rua,
     m.NomeMunicipio,
     m.IDUF AS Estado,
-    CURRENT_DATE,               -- DtInicioCliente: Data atual do carregamento
+    '1900-01-01'::date,               -- DtInicioCliente: Data atual do carregamento
     '9999-12-31'::date,         -- DtFimCliente: Data limite para registro ativo
     TRUE                        -- FlagAtualCliente: TRUE/1 (registro ativo)
 FROM
@@ -115,22 +115,29 @@ from (
         cast(fe.datacompra as date) not in (select dtcompleta from dw_cbf.dimcalendario)
 ) as a;
 
-INSERT INTO FatoReceitaDetalhada
-select
-    cp.idcompra as idreceitadet,
-    CAST(cp.datacompra as TIME) as hora,
+INSERT INTO dw_cbf.FatoReceitaDetalhada
+SELECT
+    cp.idcompra AS idreceitadet,
+    CAST(cp.datacompra AS TIME) AS hora,
     cp.quantidade,
-    cp.quantidade * p.PrecVenda as Valor,
+    cp.quantidade * p.PrecVenda AS Valor,
     dwa.SKCalendario,
     dwp.SKProduto,
     dwc.SKCliente
-from
+FROM
     oper_cbf.clicompraprod cp
-    inner join oper_cbf.produto p on p.idproduto = cp.idproduto
-    inner join oper_cbf.cliente c on c.idcliente = cp.idcliente
-    inner join dw_cbf.dimproduto dwp on dwp.idproduto = p.idproduto
-    inner join dw_cbf.dimcliente dwc on dwc.idcliente = c.idcliente
-    inner join dw_cbf.dimcalendario dwa on dwa.dtcompleta = cast(cp.datacompra as date);
+    INNER JOIN oper_cbf.produto p 
+        ON p.idproduto = cp.idproduto
+    INNER JOIN oper_cbf.cliente c 
+        ON c.idcliente = cp.idcliente
+    INNER JOIN dw_cbf.dimproduto dwp 
+        ON dwp.idproduto = p.idproduto
+    -- JOIN CORRIGIDO COM SCD TIPO 2:
+    INNER JOIN dw_cbf.dimcliente dwc 
+        ON dwc.idcliente = c.idcliente
+       AND CAST(cp.datacompra AS DATE) BETWEEN dwc.DtInicioCliente AND dwc.DtFimCliente
+    INNER JOIN dw_cbf.dimcalendario dwa 
+        ON dwa.dtcompleta = CAST(cp.datacompra AS DATE);
 
 INSERT INTO FatoReceitaAgregada
 select
