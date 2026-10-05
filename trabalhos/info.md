@@ -26,3 +26,10 @@ Minimundo: CBF farmacia
 - ETL: Extract, Transform, Load
 - DW: Modelo Dimensional
 - Dashboard
+
+
+\copy (SELECT * FROM dw_cbf.vw_fatoreceita_detalhada) TO 'receita_detalhada.csv' WITH CSV HEADER DELIMITER ',' ENCODING 'UTF8';
+
+\copy (SELECT * FROM dw_cbf.vw_fatoreceita_agregada) TO 'receita_agregada.csv' WITH CSV HEADER DELIMITER ',' ENCODING 'UTF8';
+
+\copy (SELECT * FROM dw_cbf.vw_fatodespesa) TO 'despesa.csv' WITH CSV HEADER DELIMITER ',' ENCODING 'UTF8';
