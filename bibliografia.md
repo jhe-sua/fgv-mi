@@ -12,6 +12,7 @@ em ordem de prioridade.
 	- Este é mais pratico
 - Bill Inmon. Data Lake Architecture: Designing the Data Lake and Avoiding the Garbage Dump
 	- Este é mais teorico
+- Building Data Lakehouse
 	
 
 # Modelagem de Metadados e Padrões de Arquitetura de Dados
