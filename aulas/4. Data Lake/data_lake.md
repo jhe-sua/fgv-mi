@@ -36,6 +36,10 @@ Bronce: Zona de Entrada, dado no seu estado bruto
 Prata: Tratamento e normalização dos dados
 Ouro: Dados agragados para aplicação pratica de IA e Dashboards
 
+## Governança do Data Lake
+
+## Checklist para um Projeto de Data Lake
+
 ## Arquiteturas
 
 *Stack*: Cloud e On-premisses -> Storage -> Compute -> Data Management -> Avanced Analytics Enterprise Reporting Applications
